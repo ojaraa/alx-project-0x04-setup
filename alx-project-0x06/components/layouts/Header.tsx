@@ -1,11 +1,15 @@
 import Link from "next/link";
 import Button from "../common/Button";
 import { usePathname } from "next/navigation";
-import { useCount } from "@/context/CountContext";
+import { RootState } from "@/store/store";
+import { useSelector } from "react-redux";
 
 const Header: React.FC = () => {
-   const pathname = usePathname()
-  const { count } = useCount()
+
+  const pathname = usePathname()
+  const count = useSelector((state: RootState) => state.counter.value)
+
+
   return (
     <header className="fixed w-full bg-white shadow-md">
       <div className="container mx-auto flex justify-between items-center py-6 px-4 md:px-8">
@@ -14,17 +18,6 @@ const Header: React.FC = () => {
         </Link>
 
         {/* Button Group */}
-        {/* <div className="flex gap-4">
-          <Button
-            buttonLabel="Sign In"
-            buttonBackgroundColor="red"
-          />
-          <Button
-            buttonLabel="Sign Up"
-            buttonBackgroundColor="blue"
-          />
-        </div> */}
-
         <div className="flex gap-4">
           {
             !["/counter-app"].includes(pathname) ? (
@@ -43,8 +36,6 @@ const Header: React.FC = () => {
           }
 
         </div>
-
-
       </div>
     </header>
   );
